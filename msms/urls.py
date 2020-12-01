@@ -16,7 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+
+# Routers provide an easy way of automatically determining the URL conf.
+from rest_framework import routers
+
+from core.views import CompanyViewSet
+
+router = routers.DefaultRouter()
+router.register(r'company', CompanyViewSet, basename='company')
+
+import os
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('core.urls'))
+    path('api/', include(router.urls))
 ]
