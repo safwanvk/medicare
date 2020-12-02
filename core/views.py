@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import Company
-from .serializers import CompanySerializer
+from .serializers import CompanySerializer, CompanyBankSerializer
 
 
 # class CompanyViewSet(viewsets.ModelViewSet):
@@ -50,6 +50,21 @@ class CompanyViewSet(viewsets.ViewSet):
         return Response(dict_response)
 
 
-company_list = CompanyViewSet.as_view({"get":"list"})
-company_create = CompanyViewSet.as_view({"post":"create"})
-company_update = CompanyViewSet.as_view({"put":"update"})
+class CompanyBankViewSet(viewsets.ViewSet):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def create(self, request):
+        try:
+            serializer = CompanyBankSerializer(data=request.data, context={"request": request})
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            dict_response = {"error": False, "message": "Company Bank Data Save Successfully"}
+        except:
+            dict_response = {"error": True, "message": "Error During Saving Company Data"}
+        return Response(dict_response)
+
+
+company_list = CompanyViewSet.as_view({"get": "list"})
+company_create = CompanyViewSet.as_view({"post": "create"})
+company_update = CompanyViewSet.as_view({"put": "update"})

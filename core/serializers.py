@@ -1,13 +1,16 @@
 # Serializers define the API representation.
 from rest_framework import serializers, viewsets
 
-from .models import Company
+from .models import Company, CompanyBank
 
 
-class CompanySerializer(serializers.HyperlinkedModelSerializer):
+class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = ['id', 'name', 'license_no', 'address', 'contact_no', 'email', 'description', 'added_on']
+        fields = '__all__'
 
 
-
+class CompanyBankSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompanyBank
+        fields = '__all__'

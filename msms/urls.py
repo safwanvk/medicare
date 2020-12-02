@@ -16,15 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-
 # Routers provide an easy way of automatically determining the URL conf.
 from rest_framework import routers
 
-from core.views import CompanyViewSet
+from core.views import CompanyViewSet, CompanyBankViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = routers.DefaultRouter()
 router.register(r'company', CompanyViewSet, basename='company')
+router.register(r'company-bank', CompanyBankViewSet, basename='company_bank')
 
 import os
 
