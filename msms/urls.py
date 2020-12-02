@@ -21,6 +21,7 @@ from django.urls import path, include
 from rest_framework import routers
 
 from core.views import CompanyViewSet
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = routers.DefaultRouter()
 router.register(r'company', CompanyViewSet, basename='company')
@@ -29,5 +30,7 @@ import os
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    path('api/gettoken/', TokenObtainPairView.as_view(), name="gettoken"),
+    path('api/resfresh_token/', TokenRefreshView.as_view(), name="refresh_token"),
 ]
