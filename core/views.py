@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 # ViewSets define the view behavior.
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -88,6 +88,14 @@ class CompanyBankViewSet(viewsets.ViewSet):
             dict_response = {"error": True, "message": "Error During Updating Company Bank Data"}
 
         return Response(dict_response)
+
+
+class CompanyNameViewSet(generics.ListAPIView):
+    serializer_class = CompanySerializer
+
+    def get_queryset(self):
+        name = self.kwargs["name"]
+        return Company.objects.filter(name=name)
 
 
 company_list = CompanyViewSet.as_view({"get": "list"})
