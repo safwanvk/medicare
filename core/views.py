@@ -8,8 +8,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from .models import Company, CompanyBank, Medicine
-from .serializers import CompanySerializer, CompanyBankSerializer, MedicineSerializer, MedicalDetailsSerializer
+from .models import Company, CompanyBank, Medicine, MedicalDetails
+from .serializers import CompanySerializer, CompanyBankSerializer, MedicineSerializer, MedicalDetailsSerializer, \
+    MedicalDetailsSerializerSimple
 
 
 # class CompanyViewSet(viewsets.ModelViewSet):
@@ -135,7 +136,19 @@ class MedicineViewSet(viewsets.ViewSet):
     def list(self, request):
         medicine = Medicine.objects.all()
         serializer = MedicineSerializer(medicine, many=True, context={"request": request})
-        response_dict = {"error": False, "message": "All Medicine List Data", "data": serializer.data}
+
+        medicine_data = serializer.data
+        new_medicine_list = []
+
+        # Adding Extra Key for Medicine Details in Medicine
+        for medicine in medicine_data:
+            # Accessing All the Medicine Details of Current Medicine ID
+            medicine_details = MedicalDetails.objects.filter(medicine_id=medicine["id"])
+            medicine_details_serializers = MedicalDetailsSerializerSimple(medicine_details, many=True)
+            medicine["medicine_details"] = medicine_details_serializers.data
+            new_medicine_list.append(medicine)
+
+        response_dict = {"error": False, "message": "All Medicine List Data", "data": new_medicine_list}
         return Response(response_dict)
 
     def retrieve(self, request, pk=None):
