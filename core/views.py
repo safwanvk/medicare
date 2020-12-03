@@ -70,6 +70,12 @@ class CompanyBankViewSet(viewsets.ViewSet):
         response_dict = {"error": False, "message": "All Company Bank List Data", "data": serializer.data}
         return Response(response_dict)
 
+    def retrieve(self, request, pk=None):
+        queryset = CompanyBank.objects.all()
+        company_bank = get_object_or_404(queryset, pk=pk)
+        serializer = CompanyBankSerializer(company_bank, context={"request": request})
+        return Response({"error": False, "message": "Single Data Fetch", "data": serializer.data})
+
 
 company_list = CompanyViewSet.as_view({"get": "list"})
 company_create = CompanyViewSet.as_view({"post": "create"})
