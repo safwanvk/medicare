@@ -8,8 +8,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from .models import Company, CompanyBank
-from .serializers import CompanySerializer, CompanyBankSerializer
+from .models import Company, CompanyBank, Medicine
+from .serializers import CompanySerializer, CompanyBankSerializer, MedicineSerializer
 
 
 # class CompanyViewSet(viewsets.ModelViewSet):
@@ -96,6 +96,46 @@ class CompanyNameViewSet(generics.ListAPIView):
     def get_queryset(self):
         name = self.kwargs["name"]
         return Company.objects.filter(name=name)
+
+
+class MedicineViewSet(viewsets.ViewSet):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def create(self, request):
+        try:
+            serializer = MedicineSerializer(data=request.data, context={"request": request})
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            dict_response = {"error": False, "message": "Medicine Data Save Successfully"}
+        except:
+            dict_response = {"error": True, "message": "Error During Saving Medicine Data"}
+        return Response(dict_response)
+
+    def list(self, request):
+        medicine = Medicine.objects.all()
+        serializer = MedicineSerializer(medicine, many=True, context={"request": request})
+        response_dict = {"error": False, "message": "All Medicine List Data", "data": serializer.data}
+        return Response(response_dict)
+
+    def retrieve(self, request, pk=None):
+        queryset = Medicine.objects.all()
+        medicine = get_object_or_404(queryset, pk=pk)
+        serializer = MedicineSerializer(medicine, context={"request": request})
+        return Response({"error": False, "message": "Single Data Fetch", "data": serializer.data})
+
+    def update(self, request, pk=None):
+        try:
+            queryset = Medicine.objects.all()
+            medicine = get_object_or_404(queryset, pk=pk)
+            serializer = MedicineSerializer(medicine, data=request.data, context={"request": request})
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            dict_response = {"error": False, "message": "Successfully Updated Medicine Data"}
+        except:
+            dict_response = {"error": True, "message": "Error During Updating Medicine Data"}
+
+        return Response(dict_response)
 
 
 company_list = CompanyViewSet.as_view({"get": "list"})

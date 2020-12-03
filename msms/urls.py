@@ -19,12 +19,13 @@ from django.urls import path, include
 # Routers provide an easy way of automatically determining the URL conf.
 from rest_framework import routers
 
-from core.views import CompanyViewSet, CompanyBankViewSet, CompanyNameViewSet
+from core.views import CompanyViewSet, CompanyBankViewSet, CompanyNameViewSet, MedicineViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = routers.DefaultRouter()
 router.register(r'company', CompanyViewSet, basename='company')
-router.register(r'company-bank', CompanyBankViewSet, basename='company_bank')
+router.register(r'company_bank', CompanyBankViewSet, basename='company_bank')
+router.register(r'medicine', MedicineViewSet, basename='medicine')
 
 import os
 
@@ -32,6 +33,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/gettoken/', TokenObtainPairView.as_view(), name="gettoken"),
-    path('api/resfresh_token/', TokenRefreshView.as_view(), name="refresh_token"),
+    path('api/refresh_token/', TokenRefreshView.as_view(), name="refresh_token"),
     path('api/company_by_name/<str:name>', CompanyNameViewSet.as_view(), name="company_by_name"),
 ]
