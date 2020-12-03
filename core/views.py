@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from .models import Company
+from .models import Company, CompanyBank
 from .serializers import CompanySerializer, CompanyBankSerializer
 
 
@@ -63,6 +63,12 @@ class CompanyBankViewSet(viewsets.ViewSet):
         except:
             dict_response = {"error": True, "message": "Error During Saving Company Data"}
         return Response(dict_response)
+
+    def list(self, request):
+        company_bank = CompanyBank.objects.all()
+        serializer = CompanyBankSerializer(company_bank, many=True, context={"request": request})
+        response_dict = {"error": False, "message": "All Company Bank List Data", "data": serializer.data}
+        return Response(response_dict)
 
 
 company_list = CompanyViewSet.as_view({"get": "list"})
