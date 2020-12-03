@@ -76,6 +76,19 @@ class CompanyBankViewSet(viewsets.ViewSet):
         serializer = CompanyBankSerializer(company_bank, context={"request": request})
         return Response({"error": False, "message": "Single Data Fetch", "data": serializer.data})
 
+    def update(self, request, pk=None):
+        try:
+            queryset = CompanyBank.objects.all()
+            company_bank = get_object_or_404(queryset, pk=pk)
+            serializer = CompanyBankSerializer(company_bank, data=request.data, context={"request": request})
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            dict_response = {"error": False, "message": "Successfully Updated Company Bank Data"}
+        except:
+            dict_response = {"error": True, "message": "Error During Updating Company Bank Data"}
+
+        return Response(dict_response)
+
 
 company_list = CompanyViewSet.as_view({"get": "list"})
 company_create = CompanyViewSet.as_view({"post": "create"})
