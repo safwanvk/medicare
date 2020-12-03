@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import Company, CompanyBank, Medicine
-from .serializers import CompanySerializer, CompanyBankSerializer, MedicineSerializer
+from .serializers import CompanySerializer, CompanyBankSerializer, MedicineSerializer, MedicalDetailsSerializer
 
 
 # class CompanyViewSet(viewsets.ModelViewSet):
@@ -103,14 +103,34 @@ class MedicineViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
 
     def create(self, request):
-        try:
-            serializer = MedicineSerializer(data=request.data, context={"request": request})
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-            dict_response = {"error": False, "message": "Medicine Data Save Successfully"}
-        except:
-            dict_response = {"error": True, "message": "Error During Saving Medicine Data"}
-        return Response(dict_response)
+        def create(self, request):
+            try:
+                serializer = MedicineSerializer(data=request.data, context={"request": request})
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+
+                medicine_id = serializer.data['id']
+                # Access The Serializer Id Which JUSt SAVE in OUR DATABASE TABLE
+                # print(medicine_id)
+
+                # Adding and Saving Id into Medicine Details Table
+                medicine_details_list = []
+                for medicine_detail in request.data["medicine_details"]:
+                    print(medicine_detail)
+                    # Adding medicine id which will work for medicine details serializer
+                    medicine_detail["medicine_id"] = medicine_id
+                    medicine_details_list.append(medicine_detail)
+                    print(medicine_detail)
+
+                serializer2 = MedicalDetailsSerializer(data=medicine_details_list, many=True,
+                                                       context={"request": request})
+                serializer2.is_valid()
+                serializer2.save()
+
+                dict_response = {"error": False, "message": "Medicine Data Save Successfully"}
+            except:
+                dict_response = {"error": True, "message": "Error During Saving Medicine Data"}
+            return Response(dict_response)
 
     def list(self, request):
         medicine = Medicine.objects.all()
