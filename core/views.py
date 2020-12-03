@@ -154,8 +154,15 @@ class MedicineViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
         queryset = Medicine.objects.all()
         medicine = get_object_or_404(queryset, pk=pk)
-        serializer = MedicineSerializer(medicine, context={"request": request})
-        return Response({"error": False, "message": "Single Data Fetch", "data": serializer.data})
+        serializer = MedicineSerliazer(medicine, context={"request": request})
+
+        serializer_data = serializer.data
+        # Accessing All the Medicine Details of Current Medicine ID
+        medicine_details = MedicalDetails.objects.filter(medicine_id=serializer_data["id"])
+        medicine_details_serializers = MedicalDetailsSerializerSimple(medicine_details, many=True)
+        serializer_data["medicine_details"] = medicine_details_serializers.data
+
+        return Response({"error": False, "message": "Single Data Fetch", "data": serializer_data})
 
     def update(self, request, pk=None):
         try:
