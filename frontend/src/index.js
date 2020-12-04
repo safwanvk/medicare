@@ -1,7 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import Login from './pages/login'
-import MainComponents from './components/MainComponents'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Login from './pages/login';
+import MainComponents from './components/MainComponents';
+import { PrivateRoute } from "./utils/PrivateRoute";
 
 import {
     BrowserRouter as Router,
@@ -15,7 +16,7 @@ ReactDOM.render(
     <Router>
         <switch>
             <Route exact path="/" component={Login}></Route>
-            <Route exact path="/home" component={MainComponents}></Route>
+            <PrivateRoute exact path="/home" component={MainComponents}></PrivateRoute>
         </switch>
     </Router>
     ,document.getElementById('root'))
