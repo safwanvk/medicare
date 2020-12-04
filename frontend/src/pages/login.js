@@ -6,6 +6,29 @@ import "adminbsb-materialdesign/plugins/animate-css/animate.css";
 import "adminbsb-materialdesign/css/style.css";
 
 class Login extends React.Component{
+
+    state = {
+        username: "",
+        password: "",
+        btnDisabled: true,
+
+      };
+      saveInputs = (event) => {
+        var key = event.target.name;
+        this.setState({ [key]: event.target.value });
+        if (this.state.username != "" && this.state.password != "") {
+          this.setState({ btnDisabled: false });
+        } else {
+          this.setState({ btnDisabled: true });
+        }
+      };
+    
+      formSubmit = (event) => {
+        event.preventDefault();
+        console.log(this.state);
+        
+      };
+
     render(){
 
         document.body.className = "login-page";
@@ -30,19 +53,19 @@ class Login extends React.Component{
         />
             <div class="login-box">
         <div class="logo">
-            <a href="javascript:void(0);">Admin<b>BSB</b></a>
-            <small>Admin BootStrap Based - Material Design</small>
+            <a href="javascript:void(0);">Zab<b>medicals</b></a>
+            <small>Medical Store Managment System</small>
         </div>
         <div class="card">
             <div class="body">
-                <form id="sign_in" method="POST">
+                <form id="sign_in" method="POST" onSubmit={this.formSubmit}>
                     <div class="msg">Sign in to Zabmedicals</div>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="username" placeholder="Username" required autofocus/>
+                            <input type="text" class="form-control" name="username" placeholder="Username" required autofocus onChange={this.saveInputs}/>
                         </div>
                     </div>
                     <div class="input-group">
@@ -50,7 +73,7 @@ class Login extends React.Component{
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" name="password" placeholder="Password" required/>
+                            <input type="password" class="form-control" name="password" placeholder="Password" required onChange={this.saveInputs}/>
                         </div>
                     </div>
                     <div class="row">
@@ -59,7 +82,7 @@ class Login extends React.Component{
                             <label for="rememberme">Remember Me</label>
                         </div>
                         <div class="col-xs-4">
-                            <button class="btn btn-block bg-pink waves-effect" type="submit">SIGN IN</button>
+                            <button class="btn btn-block bg-pink waves-effect" type="submit"  disabled={this.state.btnDisabled}>SIGN IN</button>
                         </div>
                     </div>
                     <div class="row m-t-15 m-b--20">
