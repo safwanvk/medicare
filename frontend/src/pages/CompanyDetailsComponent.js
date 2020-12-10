@@ -3,11 +3,12 @@ import AuthHandler from "../utils/AuthHandler";
 import APIHandler from "../utils/ApiHandler";
 
 
-class CompanyComponent extends React.Component {
+class CompanyDetailsComponent extends React.Component {
 
   constructor(props) {
     super(props);
     this.formSubmit = this.formSubmit.bind(this);
+    console.log(props.match.params.id);
   }
 
   state = {
@@ -15,7 +16,7 @@ class CompanyComponent extends React.Component {
     errorMessage: "",
     btnMessage: 0,
     sendData: false,
-    companyDataList: []
+    companyBank: []
   };
 
   async formSubmit(event) {
@@ -47,9 +48,17 @@ class CompanyComponent extends React.Component {
 
   async fetchCompanyData() {
     var apihandler = new APIHandler();
-    var companydata = await apihandler.fetchAllCompany();
+    var companydata = await apihandler.fetchCompanyDetails(
+      this.props.match.params.id
+    );
     console.log(companydata);
-    this.setState({ companyDataList: companydata.data.data });
+    this.setState({ companyBank: companydata.data.data.company_bank });
+    this.setState({ name: companydata.data.data.name });
+    this.setState({ license_no: companydata.data.data.license_no });
+    this.setState({ address: companydata.data.data.address });
+    this.setState({ contact_no: companydata.data.data.contact_no });
+    this.setState({ email: companydata.data.data.email });
+    this.setState({ description: companydata.data.data.description });
     this.setState({ dataLoaded: true });
   }
 
@@ -204,28 +213,20 @@ class CompanyComponent extends React.Component {
                 <div className="body table-responsive">
                   <table className="table table-hover">
                     <thead>
-                      <tr>
+                    <tr>
                         <th>#ID</th>
-                        <th>NAME</th>
-                        <th>License NO.</th>
-                        <th>Address</th>
-                        <th>Contact</th>
-                        <th>Email</th>
-                        <th>Description</th>
+                        <th>Account No.</th>
+                        <th>IFSC Code</th>
                         <th>Added On</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {this.state.companyDataList.map((company) => (
+                      {this.state.companyBank.map((company) => (
                         <tr key={company.id}>
                           <td>{company.id}</td>
-                          <td>{company.name}</td>
-                          <td>{company.license_no}</td>
-                          <td>{company.address}</td>
-                          <td>{company.contact_no}</td>
-                          <td>{company.email}</td>
-                          <td>{company.description}</td>
+                          <td>{company.bank_account_no}</td>
+                          <td>{company.ifsc_no}</td>
                           <td>{new Date(company.added_on).toLocaleString()}</td>
                           <td>
                             <button
@@ -252,4 +253,4 @@ class CompanyComponent extends React.Component {
   }
 }
 
-export default CompanyComponent;
+export default CompanyDetailsComponent;

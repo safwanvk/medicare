@@ -45,8 +45,8 @@ class CompanyViewSet(viewsets.ViewSet):
         serializer_data = serializer.data
         # Accessing All the Company Details of Current Company ID
         company_bank_details = CompanyBank.objects.filter(company_id=serializer_data["id"])
-        company_bank_serializers = CompanyBankSerializer(company_bank_details, many=True)
-        serializer_data["company_bank"] = company_bank_serializers.data
+        company_bank_details_serializers = CompanyBankSerializer(company_bank_details, many=True)
+        serializer_data["company_bank"] = company_bank_details_serializers.data
 
         return Response({"error": False, "message": "Single Data Fetch", "data": serializer_data})
 
