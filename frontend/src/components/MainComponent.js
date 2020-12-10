@@ -2,13 +2,13 @@ import React from 'react'
 import Navbar from './NavBar'
 import Overlay from './Overlay'
 import Sidebar from './SideBar'
-import HomeComponents from '../pages/HomeComponents'
+import HomeComponent from '../pages/HomeComponent'
 import GoogleFontLoader from "react-google-font-loader";
 import 'adminbsb-materialdesign/css/themes/all-themes.css'
 
 
 
-class MainComponents extends React.Component{
+class MainComponent extends React.Component{
 
 
     state = {
@@ -61,10 +61,10 @@ class MainComponents extends React.Component{
             <Overlay display={this.state.displayOverlay}/>
             <Navbar onBarClick={this.onBarClick}/>
             <Sidebar/>
-            <HomeComponents/>
+            <>{this.props.page}</>
         </React.Fragment>
     )
     }
 }
 
-export default MainComponents;
+export default MainComponent;
