@@ -16,7 +16,13 @@ class CompanyDetailsComponent extends React.Component {
     errorMessage: "",
     btnMessage: 0,
     sendData: false,
-    companyBank: []
+    companyBank: [],
+    name: "",
+    license_no: "",
+    address: "",
+    contact_no: "",
+    email: "",
+    description: ""
   };
 
   async formSubmit(event) {
@@ -92,6 +98,7 @@ class CompanyDetailsComponent extends React.Component {
                           name="name"
                           className="form-control"
                           placeholder="Enter Company Name"
+                          defaultValue={this.state.name}
                         />
                       </div>
                     </div>
@@ -104,6 +111,7 @@ class CompanyDetailsComponent extends React.Component {
                           name="license_no"
                           className="form-control"
                           placeholder="Enter License No."
+                          defaultValue={this.state.license_no}
                         />
                       </div>
                     </div>
@@ -116,6 +124,7 @@ class CompanyDetailsComponent extends React.Component {
                           name="address"
                           className="form-control"
                           placeholder="Enter Company Address"
+                          defaultValue={this.state.address}
                         />
                       </div>
                     </div>
@@ -208,7 +217,7 @@ class CompanyDetailsComponent extends React.Component {
                   ) : (
                     ""
                   )}
-                  <h2>All Companies</h2>
+                  <h2>Company Bank</h2>
                 </div>
                 <div className="body table-responsive">
                   <table className="table table-hover">
@@ -230,7 +239,7 @@ class CompanyDetailsComponent extends React.Component {
                           <td>{new Date(company.added_on).toLocaleString()}</td>
                           <td>
                             <button
-                              className="btn btn-block btn-warning"
+                              className="btn btn-block btn-danger"
                               onClick={() =>
                                 this.viewCompanyDetails(company.id)
                               }
