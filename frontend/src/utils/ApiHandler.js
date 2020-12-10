@@ -51,6 +51,17 @@ class APIHandler {
 }
 
 
+async fetchAllCompany() {
+    await this.checkLogin();
+
+    var response = await Axios.get(Config.companyApiUrl, {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
+
+    return response;
+  }
+
+
 
 }
 
