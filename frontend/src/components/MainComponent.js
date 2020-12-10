@@ -42,6 +42,21 @@ class MainComponent extends React.Component{
       }
     
 
+      componentDidMount() {
+        var inputall = document.querySelectorAll("input");
+        inputall.forEach((input) => {
+          input.addEventListener("focus", function () {
+            this.parentNode.className = "form-line focused";
+          });
+        });
+    
+        inputall.forEach((input) => {
+          input.addEventListener("blur", function () {
+            this.parentNode.className = "form-line";
+          });
+        });
+      }
+
    
 
     render(){
