@@ -12,7 +12,7 @@ class Sidebar extends React.Component{
     constructor(props) {
         super(props);
         this.divref = React.createRef();
-
+        this.divref2 = React.createRef();
       }
 
     componentWillMount() {
@@ -23,16 +23,18 @@ class Sidebar extends React.Component{
         document.removeEventListener("mousedown", this.handleMouseClick, false);
       }
 
-    handleMouseClick = (event) => {
+      handleMouseClick = (event) => {
         if (
-          event.target === this.divref.current 
-
+          event.target === this.divref.current ||
+          event.target === this.divref2.current
         ) {
-            return;
+          console.log("Click Element");
+          return;
         } else {
-            this.setState({ defaultClass: "btn-group user-helper-dropdown" });
+          console.log("Click Outside");
+          this.setState({ defaultClass: "btn-group user-helper-dropdown" });
         }
-    };
+      };
 
     showLogoutMenu = () => {
         if (this.state.defaultClass == "btn-group user-helper-dropdown") {
