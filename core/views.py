@@ -37,6 +37,12 @@ class CompanyViewSet(viewsets.ViewSet):
             dict_response = {"error": True, "message": "Error During Saving Company Data"}
         return Response(dict_response)
 
+    def retrieve(self, request, pk=None):
+        queryset = Company.objects.all()
+        company = get_object_or_404(queryset, pk=pk)
+        serializer = CompanySerializer(company, context={"request": request})
+        return Response({"error": False, "message": "Single Data Fetch", "data": serializer.data})
+
     def update(self, request, pk=None):
         try:
             queryset = Company.objects.all()
