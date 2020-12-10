@@ -16,10 +16,10 @@ class CompanyBankSerializer(serializers.ModelSerializer):
         model = CompanyBank
         fields = "__all__"
 
-    def to_representation(self, instance):
-        response = super().to_representation(instance)
-        response['company'] = CompanySerializer(instance.company_id).data
-        return response
+    # def to_representation(self, instance):
+    #     response = super().to_representation(instance)
+    #     response['company'] = CompanySerializer(instance.company_id).data
+    #     return response
 
 
 class MedicineSerializer(serializers.ModelSerializer):

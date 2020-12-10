@@ -41,7 +41,14 @@ class CompanyViewSet(viewsets.ViewSet):
         queryset = Company.objects.all()
         company = get_object_or_404(queryset, pk=pk)
         serializer = CompanySerializer(company, context={"request": request})
-        return Response({"error": False, "message": "Single Data Fetch", "data": serializer.data})
+
+        serializer_data = serializer.data
+        # Accessing All the Company Details of Current Company ID
+        company_bank_details = CompanyBank.objects.filter(company_id=serializer_data["id"])
+        company_bank_serializers = CompanyBankSerializer(company_bank_details, many=True)
+        serializer_data["company_bank"] = company_bank_serializers.data
+
+        return Response({"error": False, "message": "Single Data Fetch", "data": serializer_data})
 
     def update(self, request, pk=None):
         try:
