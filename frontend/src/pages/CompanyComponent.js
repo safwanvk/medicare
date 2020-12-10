@@ -1,7 +1,18 @@
 import React from "react";
 import AuthHandler from "../utils/AuthHandler";
+import APIHandler from "../utils/ApiHandler";
+
 
 class CompanyComponent extends React.Component {
+
+  async formSubmit(event) {
+    event.preventDefault();
+
+
+    var apiHandler = new APIHandler();
+    apiHandler.saveCompanyData();
+  
+  }
  
   componentDidMount(){
     console.log(AuthHandler.checkTokenExpiry());
