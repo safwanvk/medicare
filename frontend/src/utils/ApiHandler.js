@@ -33,7 +33,24 @@ class APIHandler {
   ) {
     await this.checkLogin();
     //Wait Until Token Get Updated
+
+    var response = await Axios.post(
+        Config.companyApiUrl,
+        {
+          name: name,
+          license_no: license_no,
+          address: address,
+          contact_no: contact_no,
+          email: email,
+          description: description,
+        },
+        { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+      );
+  
+      return response;
 }
+
+
 
 }
 
