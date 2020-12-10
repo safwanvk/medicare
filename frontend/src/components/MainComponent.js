@@ -28,6 +28,20 @@ class MainComponent extends React.Component{
         }
       };
 
+      onscreenresize = () => {
+        console.log(window.screen.width);
+        this.setState({ width: window.screen.width });
+      };
+    
+      componentWillMount() {
+        window.addEventListener("resize", this.onscreenresize);
+      }
+    
+      componentWillUnmount() {
+        window.removeEventListener("resize", this.onscreenresize);
+      }
+    
+
    
 
     render(){
@@ -60,7 +74,7 @@ class MainComponent extends React.Component{
         />
             <Overlay display={this.state.displayOverlay}/>
             <Navbar onBarClick={this.onBarClick}/>
-            <Sidebar/>
+            <Sidebar activepage={this.props.activepage} />
             <>{this.props.page}</>
         </React.Fragment>
     )

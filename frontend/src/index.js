@@ -18,8 +18,8 @@ ReactDOM.render(
     <Router>
         <switch>
             <Route exact path="/" component={Login}></Route>
-            <PrivateRouteNew exact path="/home" page={<HomeComponent />}></PrivateRouteNew>
-            <PrivateRouteNew exact path="/company" page={<CompanyComponent />}></PrivateRouteNew>
+            <PrivateRouteNew exact path="/home"  activepage="0" page={<HomeComponent />}></PrivateRouteNew>
+            <PrivateRouteNew exact path="/company"   activepage="1" page={<CompanyComponent />}></PrivateRouteNew>
         </switch>
     </Router>
     ,document.getElementById('root')) 

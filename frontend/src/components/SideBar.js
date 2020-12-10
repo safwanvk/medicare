@@ -99,7 +99,7 @@ class Sidebar extends React.Component{
                     className="list"
                     style={{ overflow: "hidden", width: "auto" }}
                   >
-                    {/* {Config.sidebarItem.map((item) => (
+                    {Config.sidebarItem.map((item) => (
                       <li
                         key={item.index}
                         className={
@@ -114,7 +114,7 @@ class Sidebar extends React.Component{
                           <span>{item.title}</span>
                         </Link>
                       </li>
-                    ))} */}
+                    ))}
                   </ul>
                   <div
                     className="slimScrollBar"
