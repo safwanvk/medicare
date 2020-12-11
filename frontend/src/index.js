@@ -8,6 +8,7 @@ import CompanyComponent from './pages/CompanyComponent';
 import LogoutComponent from './pages/LogoutComponent';
 import CompanyDetailsComponent from './pages/CompanyDetailsComponent';
 import CompanyAddBankComponent from './pages/CompanyAddBankComponent';
+import CompanyEditBankComponent from './pages/CompanyEditBankComponent';
 import Config from './utils/Config'
 
 import {
@@ -27,6 +28,7 @@ ReactDOM.render(
             <PrivateRouteNew exact path="/company"   activepage="1" page={CompanyComponent}></PrivateRouteNew>
             <PrivateRouteNew exact path="/companydetails/:id" activepage="1" page={CompanyDetailsComponent}></PrivateRouteNew>
             <PrivateRouteNew exact path="/addCompanyBank/:id" activepage="1" page={CompanyAddBankComponent}></PrivateRouteNew>
+            <PrivateRouteNew exact path="/editcompanybank/:company_id/:id" activepage="1" page={CompanyEditBankComponent}></PrivateRouteNew>
         </switch>
     </Router>
     ,document.getElementById('root')) 

@@ -116,6 +116,33 @@ async fetchAllCompany() {
     return response;
   }
 
+  async fetchCompanyBankDetails(id) {
+    await this.checkLogin();
+
+    var response = await Axios.get(Config.companyBankApiUrl + "" + id + "/", {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
+
+    return response;
+  }
+
+  async editCompanyBankData(bank_account_no, ifsc_no, company_id, id) {
+    await this.checkLogin();
+    //Wait Until Token Get Updated
+
+    var response = await Axios.put(
+      Config.companyBankApiUrl + "" + id + "/",
+      {
+        bank_account_no: bank_account_no,
+        ifsc_no: ifsc_no,
+        company_id: company_id,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+
+    return response;
+  }
+
 }
 
 
