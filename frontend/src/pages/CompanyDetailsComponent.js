@@ -75,6 +75,10 @@ class CompanyDetailsComponent extends React.Component {
     this.props.history.push("/companydetails/" + company_id);
   };
 
+  AddCompanyBank = () => {
+    this.props.history.push("/addCompanyBank/" + this.props.match.params.id);
+  };
+
   render() {
     return(
     <section className="content">
@@ -238,6 +242,14 @@ class CompanyDetailsComponent extends React.Component {
                     ""
                   )}
                   <h2>Company Bank</h2>
+                  <div className="header-dropdown m-r--5">
+                    <button
+                      className="btn btn-info"
+                      onClick={this.AddCompanyBank}
+                    >
+                      Add Company
+                    </button>
+                  </div>
                 </div>
                 <div className="body table-responsive">
                   <table className="table table-hover">
