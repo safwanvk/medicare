@@ -30,20 +30,20 @@ class CompanyDetailsComponent extends React.Component {
     this.setState({ btnMessage: 1 });
 
     var apiHandler = new APIHandler();
-    var response = await apiHandler.saveCompanyData(
+    var response = await apiHandler.editCompanyData(
       event.target.name.value,
       event.target.license_no.value,
       event.target.address.value,
       event.target.contact_no.value,
       event.target.email.value,
-      event.target.description.value
+      event.target.description.value,
+      this.props.match.params.id
     );
     console.log(response);
     this.setState({ btnMessage: 0 });
     this.setState({ errorRes: response.data.error });
     this.setState({ errorMessage: response.data.message });
     this.setState({ sendData: true });
-  
   }
  
   
@@ -85,7 +85,7 @@ class CompanyDetailsComponent extends React.Component {
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div className="card">
                 <div className="header">
-                  <h2>Add Company</h2>
+                  <h2>Edit Company</h2>
                 </div>
                 <div className="body">
                   <form onSubmit={this.formSubmit}>
@@ -137,6 +137,7 @@ class CompanyDetailsComponent extends React.Component {
                           name="contact_no"
                           className="form-control"
                           placeholder="Enter Contact No."
+                          defaultValue={this.state.contact_no}
                         />
                       </div>
                     </div>
@@ -149,6 +150,7 @@ class CompanyDetailsComponent extends React.Component {
                           name="email"
                           className="form-control"
                           placeholder="Enter Company Email"
+                          defaultValue={this.state.email}
                         />
                       </div>
                     </div>
@@ -161,6 +163,7 @@ class CompanyDetailsComponent extends React.Component {
                           name="description"
                           className="form-control"
                           placeholder="Enter Description"
+                          defaultValue={this.state.description}
                         />
                       </div>
                     </div>
@@ -171,8 +174,8 @@ class CompanyDetailsComponent extends React.Component {
                       disabled={this.state.btnMessage == 0 ? false : true}
                     >
                       {this.state.btnMessage == 0
-                      ? "Add Company"
-                      : "Adding Company Please Wait.."}
+                      ? "Edit Company"
+                      : "Editing Company Please Wait.."}
                       </button>
                     <br />
                     {this.state.errorRes == false &&

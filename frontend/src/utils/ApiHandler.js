@@ -71,6 +71,34 @@ async fetchAllCompany() {
     return response;
   }
 
+  async editCompanyData(
+    name,
+    license_no,
+    address,
+    contact_no,
+    email,
+    description,
+    id
+  ) {
+    await this.checkLogin();
+    //Wait Until Token Get Updated
+
+    var response = await Axios.put(
+      Config.companyApiUrl + "" + id + "/",
+      {
+        name: name,
+        license_no: license_no,
+        address: address,
+        contact_no: contact_no,
+        email: email,
+        description: description,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+
+    return response;
+  }
+
 }
 
 
