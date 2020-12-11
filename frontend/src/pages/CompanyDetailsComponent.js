@@ -22,7 +22,8 @@ class CompanyDetailsComponent extends React.Component {
     address: "",
     contact_no: "",
     email: "",
-    description: ""
+    description: "",
+    dataLoaded: false,
   };
 
   async formSubmit(event) {
@@ -85,6 +86,22 @@ class CompanyDetailsComponent extends React.Component {
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div className="card">
                 <div className="header">
+                {this.state.dataLoaded == false ? (
+                    <div className="text-center">
+                      <div className="preloader pl-size-xl">
+                        <div className="spinner-layer">
+                          <div className="circle-clipper left">
+                            <div className="circle"></div>
+                          </div>
+                          <div className="circle-clipper right">
+                            <div className="circle"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                   <h2>Edit Company</h2>
                 </div>
                 <div className="body">

@@ -15,7 +15,8 @@ class CompanyComponent extends React.Component {
     errorMessage: "",
     btnMessage: 0,
     sendData: false,
-    companyDataList: []
+    companyDataList: [],
+    dataLoaded: false,
   };
 
   async formSubmit(event) {
