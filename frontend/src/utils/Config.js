@@ -9,6 +9,7 @@ class Config {
     static sidebarItem = [
         { index: "0", title: "Home", url: "/home", icons: "home" },
         { index: "1", title: "Company", url: "/company", icons: "assessment" },
+        { index: "2", title: "Add Medicine", url: "/addMedicine", icons: "assessment"},
     ]
 }
 

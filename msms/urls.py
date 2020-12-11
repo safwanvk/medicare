@@ -35,5 +35,5 @@ urlpatterns = [
     path('api/gettoken/', TokenObtainPairView.as_view(), name="gettoken"),
     path('api/refresh_token/', TokenRefreshView.as_view(), name="refresh_token"),
     path('api/company_by_name/<str:name>', CompanyNameViewSet.as_view(), name="company_by_name"),
-    path('api/company_only/', CompanyOnlyViewSet.as_view(), name="companyonly")
+    path('api/company_only/', CompanyOnlyViewSet.as_view(), name="company_only")
 ]
