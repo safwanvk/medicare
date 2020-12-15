@@ -78,7 +78,14 @@ class MedicineAddComponent extends React.Component {
     this.setState({});
   };
 
- 
+  handleInput = (event) => {
+    var keyname = event.target.name;
+    var value = event.target.value;
+    var index = event.target.getAttribute("data-index");
+    this.state.medicinedetails[index][keyname] = value;
+    this.setState({});
+    console.log(this.state.medicinedetails);
+  };
 
   render() {
     return (
