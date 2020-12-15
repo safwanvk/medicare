@@ -8,9 +8,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from .models import Company, CompanyBank, Medicine, MedicalDetails
+from .models import Company, CompanyBank, Medicine, MedicalDetails, CompanyAccount
 from .serializers import CompanySerializer, CompanyBankSerializer, MedicineSerializer, MedicalDetailsSerializer, \
-    MedicalDetailsSerializerSimple
+    MedicalDetailsSerializerSimple, CompanyAccountSerializer
 
 
 # class CompanyViewSet(viewsets.ModelViewSet):
@@ -209,6 +209,42 @@ class MedicineViewSet(viewsets.ViewSet):
                 serializer3.save()
                 print("UPDATE")
 
+        return Response({"error": False, "message": "Data Has Been Updated"})
+
+
+# Company Account Viewset
+class CompanyAccountViewset(viewsets.ViewSet):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def create(self, request):
+        try:
+            serializer = CompanyAccountSerializer(data=request.data, context={"request": request})
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            dict_response = {"error": False, "message": "Company Account Data Save Successfully"}
+        except:
+            dict_response = {"error": True, "message": "Error During Saving Company Account Data"}
+        return Response(dict_response)
+
+    def list(self, request):
+        company_account = CompanyAccount.objects.all()
+        serializer = CompanyAccountSerializer(company_account, many=True, context={"request": request})
+        response_dict = {"error": False, "message": "All Company Account List Data", "data": serializer.data}
+        return Response(response_dict)
+
+    def retrieve(self, request, pk=None):
+        queryset = CompanyAccount.objects.all()
+        company_account = get_object_or_404(queryset, pk=pk)
+        serializer = CompanyAccountSerializer(company_account, context={"request": request})
+        return Response({"error": False, "message": "Single Data Fetch", "data": serializer.data})
+
+    def update(self, request, pk=None):
+        queryset = CompanyAccount.objects.all()
+        company_account = get_object_or_404(queryset, pk=pk)
+        serializer = CompanyBankSerializer(company_account, data=request.data, context={"request": request})
+        serializer.is_valid()
+        serializer.save()
         return Response({"error": False, "message": "Data Has Been Updated"})
 
 
