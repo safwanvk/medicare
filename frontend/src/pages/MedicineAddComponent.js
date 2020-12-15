@@ -71,6 +71,13 @@ class MedicineAddComponent extends React.Component {
     this.setState({});
   };
 
+  RemoveItems = () => {
+    if (this.state.medicinedetails.length != 1) {
+      this.state.medicinedetails.pop(this.state.medicinedetails.length - 1);
+    }
+    this.setState({});
+  };
+
  
 
   render() {
