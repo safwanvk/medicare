@@ -185,17 +185,31 @@ class MedicineViewSet(viewsets.ViewSet):
         return Response({"error": False, "message": "Single Data Fetch", "data": serializer_data})
 
     def update(self, request, pk=None):
-        try:
-            queryset = Medicine.objects.all()
-            medicine = get_object_or_404(queryset, pk=pk)
-            serializer = MedicineSerializer(medicine, data=request.data, context={"request": request})
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-            dict_response = {"error": False, "message": "Successfully Updated Medicine Data"}
-        except:
-            dict_response = {"error": True, "message": "Error During Updating Medicine Data"}
+        queryset = Medicine.objects.all()
+        medicine = get_object_or_404(queryset, pk=pk)
+        serializer = MedicineSerializer(medicine, data=request.data, context={"request": request})
+        serializer.is_valid()
+        serializer.save()
+        # print(request.data["medicine_details"])
+        for salt_detail in request.data["medicine_details"]:
+            if salt_detail["id"] == 0:
+                # For Insert New Salt Details
+                del salt_detail["id"]
+                salt_detail["medicine_id"] = serializer.data["id"]
+                serializer2 = MedicalDetailsSerializer(data=salt_detail, context={"request": request})
+                serializer2.is_valid()
+                serializer2.save()
+            else:
+                # For Update Salt Details
+                queryset2 = MedicalDetails.objects.all()
+                medicine_salt = get_object_or_404(queryset2, pk=salt_detail["id"])
+                del salt_detail["id"]
+                serializer3 = MedicalDetailsSerializer(medicine_salt, data=salt_detail, context={"request": request})
+                serializer3.is_valid()
+                serializer3.save()
+                print("UPDATE")
 
-        return Response(dict_response)
+        return Response({"error": False, "message": "Data Has Been Updated"})
 
 
 company_list = CompanyViewSet.as_view({"get": "list"})
