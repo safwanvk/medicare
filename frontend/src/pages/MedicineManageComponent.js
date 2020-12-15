@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 class MedicineManageComponent extends React.Component {
     constructor(props) {
       super(props);
-
+      this.formSubmit = this.formSubmit.bind(this);
     }
     state = {
       errorRes: false,
@@ -34,6 +34,35 @@ class MedicineManageComponent extends React.Component {
       total_salt_list: 0,
       medicine_id: 0,
     };
+
+    async formSubmit(event) {
+      event.preventDefault();
+      this.setState({ btnMessage: 1 });
+      var apiHandler = new APIHandler();
+      var response = await apiHandler.editMedicineData(
+        event.target.name.value,
+        event.target.medical_typ.value,
+        event.target.buy_price.value,
+        event.target.sell_price.value,
+        event.target.c_gst.value,
+        event.target.s_gst.value,
+        event.target.batch_no.value,
+        event.target.shelf_no.value,
+        event.target.expire_date.value,
+        event.target.mfg_date.value,
+        event.target.company_id.value,
+        event.target.description1.value,
+        event.target.in_stock_total.value,
+        event.target.qty_in_strip.value,
+        this.state.medicinedetails,
+        this.state.medicine_id
+      );
+      console.log(response);
+      this.setState({ btnMessage: 0 });
+      this.setState({ errorRes: response.data.error });
+      this.setState({ errorMessage: response.data.message });
+      this.setState({ sendData: true });
+    }
   
     componentDidMount() {
         this.LoadInitialData();
@@ -47,6 +76,35 @@ class MedicineManageComponent extends React.Component {
         this.setState({ medicineDataList: medicinedata.data.data });
         this.setState({ dataLoaded: true });
       }
+
+      RemoveItems = () => {
+        if (this.state.medicinedetails.length != this.state.total_salt_list) {
+          this.state.medicinedetails.pop(this.state.medicinedetails.length - 1);
+        }
+        this.setState({});
+      };
+    
+      handleInput = (event) => {
+        var keyname = event.target.name;
+        var value = event.target.value;
+        var index = event.target.getAttribute("data-index");
+        this.state.medicinedetails[index][keyname] = value;
+        this.setState({});
+        console.log(this.state.medicinedetails);
+      };
+    
+      AddItem = () => {
+        var item = {
+          salt_name: "",
+          salt_qty: "",
+          salt_qty_type: "",
+          description: "",
+          id: 0,
+        };
+    
+        this.state.medicinedetails.push(item);
+        this.setState({});
+      };
   
       viewmedicineDetails = (index) => {
         console.log(this.state.medicineDataList[index]);
