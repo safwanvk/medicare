@@ -48,7 +48,28 @@ class MedicineAddComponent extends React.Component {
     this.setState({ sendData: true });
   }
 
+  
+  componentDidMount() {
+    this.LoadCompany();
+  }
 
+  async LoadCompany() {
+    var apihandler = new APIHandler();
+    var companydata = await apihandler.fetchCompanyOnly();
+    this.setState({ companylist: companydata.data });
+  }
+
+  AddItem = () => {
+    var item = {
+      salt_name: "",
+      salt_qty: "",
+      salt_qty_type: "",
+      description: "",
+    };
+
+    this.state.medicinedetails.push(item);
+    this.setState({});
+  };
 
  
 

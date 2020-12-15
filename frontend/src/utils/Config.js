@@ -5,6 +5,7 @@ class Config {
     static refreshApiUrl = "http://127.0.0.1:8000/api/resfresh_token/";
     static companyApiUrl = "http://127.0.0.1:8000/api/company/";
     static companyBankApiUrl = "http://127.0.0.1:8000/api/company_bank/";
+    static companyOnly = "http://127.0.0.1:8000/api/company_only/";
 
     static sidebarItem = [
         { index: "0", title: "Home", url: "/home", icons: "home" },
