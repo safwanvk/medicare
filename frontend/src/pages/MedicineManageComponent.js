@@ -48,7 +48,45 @@ class MedicineManageComponent extends React.Component {
         this.setState({ dataLoaded: true });
       }
   
-    
+      viewmedicineDetails = (index) => {
+        console.log(this.state.medicineDataList[index]);
+        this.setState({ medicine_id: this.state.medicineDataList[index].id });
+        this.setState({ name: this.state.medicineDataList[index].name });
+        this.setState({
+          medical_typ: this.state.medicineDataList[index].medical_typ,
+        });
+        this.setState({ buy_price: this.state.medicineDataList[index].buy_price });
+        this.setState({
+          sell_price: this.state.medicineDataList[index].sell_price,
+        });
+        this.setState({ c_gst: this.state.medicineDataList[index].c_gst });
+        this.setState({ s_gst: this.state.medicineDataList[index].s_gst });
+        this.setState({ batch_no: this.state.medicineDataList[index].batch_no });
+        this.setState({ shelf_no: this.state.medicineDataList[index].shelf_no });
+        this.setState({
+          expire_date: this.state.medicineDataList[index].expire_date,
+        });
+        this.setState({ mfg_date: this.state.medicineDataList[index].mfg_date });
+        this.setState({
+          company_id: this.state.medicineDataList[index].company_id,
+        });
+        this.setState({
+          description1: this.state.medicineDataList[index].description,
+        });
+        this.setState({
+          in_stock_total: this.state.medicineDataList[index].in_stock_total,
+        });
+        this.setState({
+          qty_in_strip: this.state.medicineDataList[index].qty_in_strip,
+        });
+        this.setState({
+          total_salt_list: this.state.medicineDataList[index].medicine_details
+            .length,
+        });
+        this.setState({
+          medicinedetails: this.state.medicineDataList[index].medicine_details,
+        });
+      };
   
     
     
