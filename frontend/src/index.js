@@ -11,8 +11,8 @@ import CompanyAddBankComponent from './pages/CompanyAddBankComponent';
 import CompanyEditBankComponent from './pages/CompanyEditBankComponent';
 import MedicineAddComponent from './pages/MedicineAddComponent';
 import MedicineManageComponent from './pages/MedicineManageComponent';
-import Config from './utils/Config'
-
+import CompanyAccountComponent from './pages/CompanyAccountComponent';
+import Config from './utils/Config';
 import {
     BrowserRouter as Router,
     Switch,
@@ -33,6 +33,7 @@ ReactDOM.render(
             <PrivateRouteNew exact path="/editcompanybank/:company_id/:id" activepage="1" page={CompanyEditBankComponent}></PrivateRouteNew>
             <PrivateRouteNew exact path="/addMedicine" activepage="2" page={MedicineAddComponent}></PrivateRouteNew>
             <PrivateRouteNew exact path="/manageMedicine" activepage="3" page={MedicineManageComponent}></PrivateRouteNew>
+            <PrivateRouteNew exact path="/manageCompanyAccount" activepage="4" page={CompanyAccountComponent}></PrivateRouteNew>
         </switch>
     </Router>
     ,document.getElementById('root')) 
