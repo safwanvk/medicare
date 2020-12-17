@@ -7,6 +7,7 @@ class EmployeeDetailsComponent extends React.Component {
     super(props);
     this.formSubmit = this.formSubmit.bind(this);
     this.formSubmitSalary = this.formSubmitSalary.bind(this);
+    this.formSubmitBank = this.formSubmitBank.bind(this);
   }
   state = {
     errorRes: false,
@@ -105,7 +106,23 @@ class EmployeeDetailsComponent extends React.Component {
     this.updateDataAgain();
   }
 
+  async formSubmitBank(event) {
+    event.preventDefault();
+    this.setState({ btnMessageBank: 1 });
 
+    var apiHandler = new APIHandler();
+    var response = await apiHandler.AddEmployeeBankData(
+      event.target.bank_account_no.value,
+      event.target.ifsc_no.value,
+      this.props.match.params.id
+    );
+    console.log(response);
+    this.setState({ btnMessageBank: 0 });
+    this.setState({ errorResBank: response.data.error });
+    this.setState({ errorMessageBank: response.data.message });
+    this.setState({ sendDataBank: true });
+    this.updateDataAgain();
+  }
 
   render() {
     return (

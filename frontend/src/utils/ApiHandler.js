@@ -392,6 +392,24 @@ async fetchAllCompany() {
     return response;
   }
 
+
+  async AddEmployeeBankData(bank_account_no, ifsc_no, employee_id) {
+    await this.checkLogin();
+    //Wait Until Token Get Updated
+
+    var response = await Axios.post(
+      Config.employeeBankApiUrl,
+      {
+        bank_account_no: bank_account_no,
+        ifsc_no: ifsc_no,
+        employee_id: employee_id,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+
+    return response;
+  }
+
 }
 
 
