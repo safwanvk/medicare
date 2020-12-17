@@ -8,6 +8,7 @@ class Config {
     static companyOnly = "http://127.0.0.1:8000/api/company_only/";
     static medicineApiUrl = "http://127.0.0.1:8000/api/medicine/";
     static companyAccountApiUrl = "http://127.0.0.1:8000/api/company_account/";
+    static employeeApiURL = "http://127.0.0.1:8000/api/employee/";
 
     static sidebarItem = [
         { index: "0", title: "Home", url: "/home", icons: "home"},
@@ -15,6 +16,7 @@ class Config {
         { index: "2", title: "Add Medicine", url: "/addMedicine", icons: "assessment"},
         { index: "3", title: "Manage Medicine", url: "/manageMedicine", icons: "assessment"},
         { index: "4", title: "Manage Company Account", url: "/manageCompanyAccount", icons: "assessment"},
+        { index: "5", title: "Manage Employee", url: "/employeeManage", icons: "assessment"},
     ]
 }
 
