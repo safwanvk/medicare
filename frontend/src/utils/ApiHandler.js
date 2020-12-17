@@ -327,6 +327,36 @@ async fetchAllCompany() {
     return response;
   }
 
+  async fetchEmployeeById(id) {
+    await this.checkLogin();
+
+    var response = await Axios.get(Config.employeeApiURL + "" + id + "/", {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
+
+    return response;
+  }
+
+  async fetchSalaryEmployee(id) {
+    await this.checkLogin();
+
+    var response = await Axios.get(Config.employeeSalaryByIdApiUrl + "" + id, {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
+
+    return response;
+  }
+
+  async fetchBankEmployee(id) {
+    await this.checkLogin();
+
+    var response = await Axios.get(Config.employeeBankApiUrlBYID + "" + id, {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
+
+    return response;
+  }
+
 }
 
 

@@ -51,7 +51,9 @@ class EmployeeComponent extends React.Component {
     this.setState({ dataLoaded: true });
   }
 
-  
+  ShowEmpDetails = (eid) => {
+    this.props.history.push("/employeedetails/" + eid);
+  };
 
   render() {
     return (
