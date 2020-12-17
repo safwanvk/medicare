@@ -357,6 +357,24 @@ async fetchAllCompany() {
     return response;
   }
 
+  async editEmployeeData(name, joining_date, phone, address, id) {
+    await this.checkLogin();
+    //Wait Until Token Get Updated
+
+    var response = await Axios.put(
+      Config.employeeApiURL + "" + id + "/",
+      {
+        name: name,
+        joining_date: joining_date,
+        phone: phone,
+        address: address,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+
+    return response;
+  }
+
 }
 
 
