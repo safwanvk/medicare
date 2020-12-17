@@ -375,6 +375,23 @@ async fetchAllCompany() {
     return response;
   }
 
+  async AddEmployeeSalaryData(salary_date, salary_amount, employee_id) {
+    await this.checkLogin();
+    //Wait Until Token Get Updated
+
+    var response = await Axios.post(
+      Config.employeeSalaryApiUrl,
+      {
+        salary_date: salary_date,
+        salary_amount: salary_amount,
+        employee_id: employee_id,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+
+    return response;
+  }
+
 }
 
 

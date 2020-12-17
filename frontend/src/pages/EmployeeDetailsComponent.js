@@ -6,7 +6,7 @@ class EmployeeDetailsComponent extends React.Component {
   constructor(props) {
     super(props);
     this.formSubmit = this.formSubmit.bind(this);
-   
+    this.formSubmitSalary = this.formSubmitSalary.bind(this);
   }
   state = {
     errorRes: false,
@@ -85,6 +85,24 @@ class EmployeeDetailsComponent extends React.Component {
     this.setState({ employeebankList: employeeBank.data });
     //this.setState({ employeeList: employeeDataList.data.data });
     this.setState({ dataLoaded: true });
+  }
+
+  async formSubmitSalary(event) {
+    event.preventDefault();
+    this.setState({ btnMessageSalary: 1 });
+
+    var apiHandler = new APIHandler();
+    var response = await apiHandler.AddEmployeeSalaryData(
+      event.target.salary_date.value,
+      event.target.salary_amount.value,
+      this.props.match.params.id
+    );
+    console.log(response);
+    this.setState({ btnMessageSalary: 0 });
+    this.setState({ errorResSalary: response.data.error });
+    this.setState({ errorMessageSalary: response.data.message });
+    this.setState({ sendDataSalary: true });
+    this.updateDataAgain();
   }
 
 
