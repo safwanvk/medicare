@@ -8,9 +8,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from .models import Company, CompanyBank, Medicine, MedicalDetails, CompanyAccount, Employee, EmployeeBank
+from .models import Company, CompanyBank, Medicine, MedicalDetails, CompanyAccount, Employee, EmployeeBank, EmployeeSalary
 from .serializers import CompanySerializer, CompanyBankSerializer, MedicineSerializer, MedicalDetailsSerializer, \
-    MedicalDetailsSerializerSimple, CompanyAccountSerializer, EmployeeSerializer, EmployeeBankSerializer
+    MedicalDetailsSerializerSimple, CompanyAccountSerializer, EmployeeSerializer, EmployeeBankSerializer, EmployeeSalarySerializer
 
 
 # class CompanyViewSet(viewsets.ModelViewSet):
@@ -315,6 +315,42 @@ class EmployeeBankViewset(viewsets.ViewSet):
         queryset = EmployeeBank.objects.all()
         employee_bank = get_object_or_404(queryset, pk=pk)
         serializer = EmployeeBankSerializer(employee_bank, data=request.data, context={"request": request})
+        serializer.is_valid()
+        serializer.save()
+        return Response({"error": False, "message": "Data Has Been Updated"})
+
+
+# Employee Salary Viewset
+class EmployeeSalaryViewset(viewsets.ViewSet):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def create(self, request):
+        try:
+            serializer = EmployeeSalarySerializer(data=request.data, context={"request": request})
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            dict_response = {"error": False, "message": "Employee Salary Save Successfully"}
+        except:
+            dict_response = {"error": True, "message": "Error During Saving Employee Salary"}
+        return Response(dict_response)
+
+    def list(self, request):
+        employee_salary = EmployeeSalary.objects.all()
+        serializer = EmployeeSalarySerializer(employee_salary, many=True, context={"request": request})
+        response_dict = {"error": False, "message": "All Employee Salary List Data", "data": serializer.data}
+        return Response(response_dict)
+
+    def retrieve(self, request, pk=None):
+        queryset = EmployeeSalary.objects.all()
+        employee_salary = get_object_or_404(queryset, pk=pk)
+        serializer = EmployeeSalarySerializer(employee_salary, context={"request": request})
+        return Response({"error": False, "message": "Single Data Fetch", "data": serializer.data})
+
+    def update(self, request, pk=None):
+        queryset = EmployeeSalary.objects.all()
+        employee_salary = get_object_or_404(queryset, pk=pk)
+        serializer = EmployeeSalarySerializer(employee_salary, data=request.data, context={"request": request})
         serializer.is_valid()
         serializer.save()
         return Response({"error": False, "message": "Data Has Been Updated"})
