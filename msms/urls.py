@@ -20,7 +20,7 @@ from django.urls import path, include
 from rest_framework import routers
 
 from core.views import CompanyViewSet, CompanyBankViewSet, CompanyNameViewSet, MedicineViewSet, CompanyOnlyViewSet,\
-    CompanyAccountViewset, EmployeeViewset, EmployeeBankViewset, EmployeeSalaryViewset
+    CompanyAccountViewset, EmployeeViewset, EmployeeBankViewset, EmployeeSalaryViewset, EmployeeBankByEIDViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = routers.DefaultRouter()
@@ -40,5 +40,6 @@ urlpatterns = [
     path('api/gettoken/', TokenObtainPairView.as_view(), name="gettoken"),
     path('api/refresh_token/', TokenRefreshView.as_view(), name="refresh_token"),
     path('api/company_by_name/<str:name>', CompanyNameViewSet.as_view(), name="company_by_name"),
-    path('api/company_only/', CompanyOnlyViewSet.as_view(), name="company_only")
+    path('api/company_only/', CompanyOnlyViewSet.as_view(), name="company_only"),
+    path('api/employee_bank_by_id/<str:employee_id>', EmployeeBankByEIDViewSet.as_view(), name="employee_bank_by_id"),
 ]

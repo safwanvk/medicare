@@ -8,9 +8,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from .models import Company, CompanyBank, Medicine, MedicalDetails, CompanyAccount, Employee, EmployeeBank, EmployeeSalary
+from .models import Company, CompanyBank, Medicine, MedicalDetails, CompanyAccount, Employee, EmployeeBank, \
+    EmployeeSalary
 from .serializers import CompanySerializer, CompanyBankSerializer, MedicineSerializer, MedicalDetailsSerializer, \
-    MedicalDetailsSerializerSimple, CompanyAccountSerializer, EmployeeSerializer, EmployeeBankSerializer, EmployeeSalarySerializer
+    MedicalDetailsSerializerSimple, CompanyAccountSerializer, EmployeeSerializer, EmployeeBankSerializer, \
+    EmployeeSalarySerializer
 
 
 # class CompanyViewSet(viewsets.ModelViewSet):
@@ -354,6 +356,16 @@ class EmployeeSalaryViewset(viewsets.ViewSet):
         serializer.is_valid()
         serializer.save()
         return Response({"error": False, "message": "Data Has Been Updated"})
+
+
+class EmployeeBankByEIDViewSet(generics.ListAPIView):
+    serializer_class = EmployeeBankSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        employee_id = self.kwargs["employee_id"]
+        return EmployeeBank.objects.filter(employee_id=employee_id)
 
 
 company_list = CompanyViewSet.as_view({"get": "list"})
