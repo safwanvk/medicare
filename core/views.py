@@ -368,6 +368,16 @@ class EmployeeBankByEIDViewSet(generics.ListAPIView):
         return EmployeeBank.objects.filter(employee_id=employee_id)
 
 
+class EmployeeSalaryByEIDViewSet(generics.ListAPIView):
+    serializer_class = EmployeeSalarySerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        employee_id = self.kwargs["employee_id"]
+        return EmployeeSalary.objects.filter(employee_id=employee_id)
+
+
 company_list = CompanyViewSet.as_view({"get": "list"})
 company_create = CompanyViewSet.as_view({"post": "create"})
 company_update = CompanyViewSet.as_view({"put": "update"})
