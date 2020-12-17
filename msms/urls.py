@@ -19,7 +19,7 @@ from django.urls import path, include
 # Routers provide an easy way of automatically determining the URL conf.
 from rest_framework import routers
 
-from core.views import CompanyViewSet, CompanyBankViewSet, CompanyNameViewSet, MedicineViewSet, CompanyOnlyViewSet, CompanyAccountViewset, EmployeeViewset
+from core.views import CompanyViewSet, CompanyBankViewSet, CompanyNameViewSet, MedicineViewSet, CompanyOnlyViewSet, CompanyAccountViewset, EmployeeViewset, EmployeeBankViewset
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = routers.DefaultRouter()
@@ -28,6 +28,7 @@ router.register(r'company_bank', CompanyBankViewSet, basename='company_bank')
 router.register(r'medicine', MedicineViewSet, basename='medicine')
 router.register("company_account", CompanyAccountViewset, basename="company_account")
 router.register("employee", EmployeeViewset, basename="employee")
+router.register("employee_all_bank", EmployeeBankViewset, basename="employee_all_bank")
 
 import os
 
