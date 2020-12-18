@@ -59,9 +59,9 @@ class Sidebar extends React.Component{
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    SuperCoders
+                    Zabmedicals
                   </div>
-                  <div className="email">supercoders.tech@gmail.com</div>
+                  <div className="email">Zabmedicals@gmail.com</div>
                   <div className={this.state.defaultClass}>
                     <i
                       className="material-icons"
@@ -154,7 +154,7 @@ class Sidebar extends React.Component{
               <div className="legal">
                 <div className="copyright">
                   © 2020 - 2021{" "}
-                  <a href="#">SuperCoders - Medical Store Management System</a>.
+                  <a href="#">Zabmedicals - Medical Store Management System</a>.
                 </div>
                 <div className="version">
                   <b>Version: </b> 1.0.5
