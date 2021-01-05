@@ -24,7 +24,43 @@ class BillGenerateComponent extends React.Component {
           amount: "",
         },
       ],
+      currentSrno: 1,
     };
+
+
+    async formSubmit(event) {
+      event.preventDefault();
+      console.log(this.state.medicineDetails);
+      console.log(event.target.customer_name.value);
+      console.log(event.target.address.value);
+      console.log(event.target.phone.value);
+  
+      this.setState({ btnMessage: 1 });
+  
+      var customer_name = event.target.customer_name.value;
+      var address = event.target.address.value;
+      var phone = event.target.phone.value;
+  
+      var apiHandler = new APIHandler();
+      var response = await apiHandler.generateBill(
+        event.target.customer_name.value,
+        event.target.address.value,
+        event.target.phone.value,
+        this.state.medicineDetails
+      );
+      console.log(response);
+      this.setState({ btnMessage: 0 });
+      this.setState({ errorRes: response.data.error });
+      this.setState({ errorMessage: response.data.message });
+      this.setState({ sendData: true });
+  
+      this.billGeneratePrint(
+        customer_name,
+        address,
+        phone,
+        this.state.medicineDetails
+      );
+    }
   
     
   

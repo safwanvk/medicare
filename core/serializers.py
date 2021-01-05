@@ -2,7 +2,7 @@
 from rest_framework import serializers, viewsets
 
 from .models import Company, CompanyBank, Medicine, MedicalDetails, Employee, Customer, Bill, EmployeeSalary, \
-    CustomerRequest, CompanyAccount, EmployeeBank
+    CustomerRequest, CompanyAccount, EmployeeBank, BillDetails
 
 
 class CompanySerializer(serializers.ModelSerializer):
@@ -105,3 +105,8 @@ class EmployeeSalarySerializer(serializers.ModelSerializer):
     class Meta:
         model = EmployeeSalary
         fields = "__all__"
+
+class BillDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=BillDetails
+        fields="__all__"
