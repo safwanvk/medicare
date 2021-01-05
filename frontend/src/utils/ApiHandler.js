@@ -424,6 +424,25 @@ async fetchAllCompany() {
     return response;
   }
 
+  async generateBill(name, address, phone, medicineDetails) {
+    await this.checkLogin();
+
+    var response = await Axios.post(
+      Config.generateBillApiUrl,
+      {
+        name: name,
+        address: address,
+        contact: phone,
+        medicine_details: medicineDetails,
+      },
+      {
+        headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+      }
+    );
+
+    return response;
+  }
+
 }
 
 

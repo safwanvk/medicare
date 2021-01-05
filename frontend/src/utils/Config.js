@@ -14,6 +14,7 @@ class Config {
     static employeeBankApiUrlBYID = "http://127.0.0.1:8000/api/employee_bank_by_id/";
     static employeeSalaryApiUrl = "http://127.0.0.1:8000/api/employee_all_salary/";
     static employeeBankApiUrl = "http://127.0.0.1:8000/api/employee_all_bank/";
+    static generateBillApiUrl = "http://127.0.0.1:8000/api/generate_bill_api/";
 
     static sidebarItem = [
         { index: "0", title: "Home", url: "/home", icons: "home"},

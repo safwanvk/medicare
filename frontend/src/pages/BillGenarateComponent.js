@@ -7,6 +7,7 @@ import AutoCompleteMedicine from "../components/AutoCompleteMedicine";
 class BillGenerateComponent extends React.Component {
     constructor(props) {
       super(props);
+      this.formSubmit = this.formSubmit.bind(this);
       
     }
     state = {
@@ -16,11 +17,14 @@ class BillGenerateComponent extends React.Component {
       sendData: false,
       medicineDetails: [
         {
-          sr_no: "",
+          sr_no: 1,
+          id: 0,
           medicine_name: "",
           qty: "",
           qty_type: "",
           unit_price: "",
+          c_gst: "",
+          s_gst: "",
           amount: "",
         },
       ],
@@ -54,33 +58,33 @@ class BillGenerateComponent extends React.Component {
       this.setState({ errorMessage: response.data.message });
       this.setState({ sendData: true });
   
-      this.billGeneratePrint(
-        customer_name,
-        address,
-        phone,
-        this.state.medicineDetails
-      );
+      
     }
   
     
   
     AddMedicineDetails = () => {
+      this.state.currentSrno = this.state.currentSrno + 1;
+      var srno = this.state.currentSrno;
       this.state.medicineDetails.push({
-        sr_no: "",
+        sr_no: srno,
         medicine_name: "",
         qty: "",
         qty_type: "",
         unit_price: "",
+        c_gst: "",
+        s_gst: "",
         amount: "",
       });
       this.setState({});
     };
   
     RemoveMedicineDetails = () => {
+      this.state.currentSrno = this.state.currentSrno - 1;
       if (this.state.medicineDetails.length > 1) {
         this.state.medicineDetails.pop();
-        this.setState({});
       }
+      this.setState({});
     };
 
     showDataInInputs = (index, item) => {
