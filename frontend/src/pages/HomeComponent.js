@@ -1,4 +1,5 @@
 import React from "react";
+import APIHandler from "../utils/ApiHandler";
 
 class HomeComponent extends React.Component {
 
@@ -19,6 +20,31 @@ class HomeComponent extends React.Component {
     profitChartOption: {},
     sellChartOption: {},
   };
+
+  componentDidMount() {
+    this.fetchHomePage();
+  }
+
+  async fetchHomePage() {
+    var apihandler = new APIHandler();
+    var homedata = await apihandler.fetchHomePage();
+    console.log(homedata);
+    this.setState({ customer_request: homedata.data.customer_request });
+    this.setState({ bill_count: homedata.data.bill_count });
+    this.setState({ medicine_count: homedata.data.medicine_count });
+    this.setState({ company_count: homedata.data.company_count });
+    this.setState({ employee_count: homedata.data.employee_count });
+    this.setState({ profit_total: homedata.data.profit_total });
+    this.setState({ sell_total: homedata.data.sell_total });
+    this.setState({ request_pending: homedata.data.request_pending });
+    this.setState({ request_completed: homedata.data.request_completed });
+    this.setState({ sell_amt_today: homedata.data.sell_amt_today });
+    this.setState({ profit_amt_today: homedata.data.profit_amt_today });
+    this.setState({
+      medicine_expire_serializer_data:
+        homedata.data.medicine_expire_serializer_data,
+    });
+  }
 
   render() {
     return (

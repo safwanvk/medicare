@@ -7,9 +7,10 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from datetime import datetime, timedelta
 
 from .models import Company, CompanyBank, Medicine, MedicalDetails, CompanyAccount, Employee, EmployeeBank, \
-    EmployeeSalary, CustomerRequest
+    EmployeeSalary, CustomerRequest, Bill, BillDetails
 from .serializers import CompanySerializer, CompanyBankSerializer, MedicineSerializer, MedicalDetailsSerializer, \
     MedicalDetailsSerializerSimple, CompanyAccountSerializer, EmployeeSerializer, EmployeeBankSerializer, \
     EmployeeSalarySerializer, CustomerSerializer, BillSerializer, BillDetailsSerializer, CustomerRequestSerializer
@@ -433,6 +434,7 @@ class GenerateBillViewSet(viewsets.ViewSet):
             #dict_response = {"error": True, "message": "Error During Generating BIll"}
         return Response(dict_response)
 
+
 class CustomerRequestViewset(viewsets.ViewSet):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
@@ -488,10 +490,10 @@ class HomeApiViewset(viewsets.ViewSet):
         bill_count_serializer=BillSerializer(bill_count,many=True,context={"request":request})
 
         medicine_count=Medicine.objects.all()
-        medicine_count_serializer=MedicineSerliazer(medicine_count,many=True,context={"request":request})
+        medicine_count_serializer=MedicineSerializer(medicine_count,many=True,context={"request":request})
 
         company_count=Company.objects.all()
-        company_count_serializer=CompanySerliazer(company_count,many=True,context={"request":request})
+        company_count_serializer=CompanySerializer(company_count,many=True,context={"request":request})
 
         employee_count=Employee.objects.all()
         employee_count_serializer=EmployeeSerializer(employee_count,many=True,context={"request":request})
@@ -530,7 +532,7 @@ class HomeApiViewset(viewsets.ViewSet):
 
 
         medicine_expire=Medicine.objects.filter(expire_date__range=[current_date,current_date_7days])
-        medicine_expire_serializer=MedicineSerliazer(medicine_expire,many=True,context={"request":request})
+        medicine_expire_serializer=MedicineSerializer(medicine_expire,many=True,context={"request":request})
 
         bill_dates=BillDetails.objects.order_by().values("added_on__date").distinct()
         profit_chart_list=[]

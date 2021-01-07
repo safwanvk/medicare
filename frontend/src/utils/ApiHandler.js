@@ -487,8 +487,16 @@ async fetchAllCompany() {
     return response;
   }
 
+  async fetchHomePage() {
+    await this.checkLogin();
+
+    var response = await Axios.get(Config.homeApiUrl, {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
+
+    return response;
+  }
+
 }
-
-
 
 export default APIHandler;
