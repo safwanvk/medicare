@@ -21,7 +21,7 @@ from rest_framework import routers
 
 from core.views import CompanyViewSet, CompanyBankViewSet, CompanyNameViewSet, MedicineViewSet, CompanyOnlyViewSet,\
     CompanyAccountViewset, EmployeeViewset, EmployeeBankViewset, EmployeeSalaryViewset, EmployeeBankByEIDViewSet, \
-    EmployeeSalaryByEIDViewSet, MedicineByNameViewSet, GenerateBillViewSet
+    EmployeeSalaryByEIDViewSet, MedicineByNameViewSet, GenerateBillViewSet, CustomerRequestViewset
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = routers.DefaultRouter()
@@ -33,6 +33,7 @@ router.register("employee", EmployeeViewset, basename="employee")
 router.register("employee_all_bank", EmployeeBankViewset, basename="employee_all_bank")
 router.register("employee_all_salary", EmployeeSalaryViewset, basename="employee_all_salary")
 router.register("generate_bill_api", GenerateBillViewSet,basename="generate_bill_api")
+router.register("customer_request",CustomerRequestViewset,basename="customer_request")
 
 import os
 
