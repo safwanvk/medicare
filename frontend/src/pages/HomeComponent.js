@@ -1,5 +1,8 @@
 import React from "react";
 import APIHandler from "../utils/ApiHandler";
+import CanvasJSReact from "../utils/canvasjs.react";
+var CanvasJS = CanvasJSReact.CanvasJS;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class HomeComponent extends React.Component {
 
@@ -44,7 +47,68 @@ class HomeComponent extends React.Component {
       medicine_expire_serializer_data:
         homedata.data.medicine_expire_serializer_data,
     });
+
+    var profitdatalist = [];
+    for (var i = 0; i < homedata.data.profit_chart.length; i++) {
+      profitdatalist.push({
+        x: new Date(homedata.data.profit_chart[i].date),
+        y: homedata.data.profit_chart[i].amt,
+      });
+    }
+    var selldatalist = [];
+    for (var i = 0; i < homedata.data.sell_chart.length; i++) {
+      selldatalist.push({
+        x: new Date(homedata.data.sell_chart[i].date),
+        y: homedata.data.sell_chart[i].amt,
+      });
+    }
+
+    this.state.profitChartOption = {
+      animationEnabled: true,
+      title: {
+        text: "Total Profit Chart of Medicine",
+      },
+      axisX: {
+        valueFormatString: "DD MMMM YYYY",
+      },
+      axisY: {
+        title: "Profit ",
+        prefix: "$",
+      },
+      data: [
+        {
+          yValueFormatString: "$#,###",
+          xValueFormatString: "DD MMMM YYYY",
+          type: "spline",
+          dataPoints: profitdatalist,
+        },
+      ],
+    };
+    this.state.sellChartOption = {
+      animationEnabled: true,
+      title: {
+        text: "Total Sell Chart of Medicine",
+      },
+      axisX: {
+        valueFormatString: "DD MMMM YYYY",
+      },
+      axisY: {
+        title: "Sales ",
+        prefix: "$",
+      },
+      data: [
+        {
+          yValueFormatString: "$#,###",
+          xValueFormatString: "DD MMMM YYYY",
+          type: "spline",
+          dataPoints: selldatalist,
+        },
+      ],
+    };
+    this.setState({});
   }
+
+  
 
   render() {
     return (
@@ -295,7 +359,10 @@ class HomeComponent extends React.Component {
                   <h2>Profit Chart</h2>
                 </div>
                 <div className="body">
-                  
+                <CanvasJSChart
+                    options={this.state.profitChartOption}
+                    /* onRef={ref => this.chart = ref} */
+                  />
                 </div>
               </div>
             </div>
@@ -307,7 +374,10 @@ class HomeComponent extends React.Component {
                   <h2>Sell Chart</h2>
                 </div>
                 <div className="body">
-                 
+                <CanvasJSChart
+                    options={this.state.sellChartOption}
+                    /* onRef={ref => this.chart = ref} */
+                  />
                 </div>
               </div>
             </div>
