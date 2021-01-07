@@ -3,22 +3,52 @@ import AuthHandler from "../utils/AuthHandler";
 import APIHandler from "../utils/ApiHandler";
 
 class CustomerRequestComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    
-  }
-  state = {
-    errorRes: false,
-    errorMessage: "",
-    btnMessage: 0,
-    sendData: false,
-    customerRequestDataList: [],
-    dataLoaded: false,
-  };
-
- 
-
- 
+    constructor(props) {
+      super(props);
+      this.formSubmit = this.formSubmit.bind(this);
+      
+      this.formRef = React.createRef();
+    }
+    state = {
+      errorRes: false,
+      errorMessage: "",
+      btnMessage: 0,
+      sendData: false,
+      customerRequestDataList: [],
+      dataLoaded: false,
+    };
+  
+    async formSubmit(event) {
+      event.preventDefault();
+      this.setState({ btnMessage: 1 });
+  
+      var apiHandler = new APIHandler();
+      var response = await apiHandler.saveCustomerRequestData(
+        event.target.name.value,
+        event.target.phone.value,
+        event.target.medicine_details.value
+      );
+      console.log(response);
+      this.setState({ btnMessage: 0 });
+      this.setState({ errorRes: response.data.error });
+      this.setState({ errorMessage: response.data.message });
+      this.setState({ sendData: true });
+      this.fetchCustomerRequestData();
+      this.formRef.current.reset();
+    }
+  
+    //This Method Work When Our Page is Ready
+    componentDidMount() {
+      this.fetchCustomerRequestData();
+    }
+  
+    async fetchCustomerRequestData() {
+      var apihandler = new APIHandler();
+      var customerRequestData = await apihandler.fetchAllCustomerRequest();
+      console.log(customerRequestData);
+      this.setState({ customerRequestDataList: customerRequestData.data.data });
+      this.setState({ dataLoaded: true });
+    }
 
   
 
