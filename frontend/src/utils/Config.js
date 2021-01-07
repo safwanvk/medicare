@@ -24,6 +24,7 @@ class Config {
         { index: "4", title: "Manage Company Account", url: "/manageCompanyAccount", icons: "assessment"},
         { index: "5", title: "Manage Employee", url: "/employeeManage", icons: "assessment"},
         { index: "6", title: "Generate Bill", url: "/generateBill", icons: "assessment"},
+        { index: "7", title: "Customer Request", url: "/customerRequest", icons: "assessment"},
     ]
 }
 
