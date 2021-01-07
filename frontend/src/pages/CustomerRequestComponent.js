@@ -6,7 +6,9 @@ class CustomerRequestComponent extends React.Component {
     constructor(props) {
       super(props);
       this.formSubmit = this.formSubmit.bind(this);
-      
+      this.completeCustomerRequestDetails = this.completeCustomerRequestDetails.bind(
+        this
+      );
       this.formRef = React.createRef();
     }
     state = {
@@ -49,6 +51,24 @@ class CustomerRequestComponent extends React.Component {
       this.setState({ customerRequestDataList: customerRequestData.data.data });
       this.setState({ dataLoaded: true });
     }
+
+    async completeCustomerRequestDetails(
+        customer_id,
+        name,
+        phone,
+        medicine_details
+      ) {
+        console.log(customer_id);
+        var apihandler = new APIHandler();
+        var customerRequestData = await apihandler.updateCustomerRequest(
+          customer_id,
+          name,
+          phone,
+          medicine_details
+        );
+        console.log(customerRequestData);
+        this.fetchCustomerRequestData();
+      }
 
   
 

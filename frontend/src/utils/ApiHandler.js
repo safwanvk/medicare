@@ -348,6 +348,23 @@ async fetchAllCompany() {
     return response;
   }
 
+  async updateCustomerRequest(customer_id, name, phone, medicine_details) {
+    await this.checkLogin();
+    //Wait Until Token Get Updated
+
+    var response = await Axios.put(
+      Config.customerRequestApiUrl + "" + customer_id + "/",
+      {
+        customer_name: name,
+        phone: phone,
+        medicine_details: medicine_details,
+        status: 1,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+    return response;
+  }
+
   async fetchEmployee() {
     await this.checkLogin();
 
