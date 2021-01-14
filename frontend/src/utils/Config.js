@@ -1,22 +1,22 @@
 class Config {
-    static loginUrl = "http://127.0.0.1:8000/api/gettoken/";
+    static loginUrl = "https://zabmsms.herokuapp.com/api/gettoken/";
     static homeUrl = "/home";
     static logoutPageUrl = "/logout";
-    static refreshApiUrl = "http://127.0.0.1:8000/api/resfresh_token/";
-    static companyApiUrl = "http://127.0.0.1:8000/api/company/";
-    static companyBankApiUrl = "http://127.0.0.1:8000/api/company_bank/";
-    static companyOnly = "http://127.0.0.1:8000/api/company_only/";
-    static medicineApiUrl = "http://127.0.0.1:8000/api/medicine/";
-    static companyAccountApiUrl = "http://127.0.0.1:8000/api/company_account/";
-    static medicineNameApiUrl = "http://127.0.0.1:8000/api/medicine_by_name/";
-    static employeeApiURL = "http://127.0.0.1:8000/api/employee/";
-    static employeeSalaryByIdApiUrl = "http://127.0.0.1:8000/api/employee_salary_by_id/";
-    static employeeBankApiUrlBYID = "http://127.0.0.1:8000/api/employee_bank_by_id/";
-    static employeeSalaryApiUrl = "http://127.0.0.1:8000/api/employee_all_salary/";
-    static employeeBankApiUrl = "http://127.0.0.1:8000/api/employee_all_bank/";
-    static generateBillApiUrl = "http://127.0.0.1:8000/api/generate_bill_api/";
-    static customerRequestApiUrl = "http://127.0.0.1:8000/api/customer_request/";
-    static homeApiUrl = "http://127.0.0.1:8000/api/home_api/";
+    static refreshApiUrl = "https://zabmsms.herokuapp.com/api/resfresh_token/";
+    static companyApiUrl = "https://zabmsms.herokuapp.com/api/company/";
+    static companyBankApiUrl = "https://zabmsms.herokuapp.com/api/company_bank/";
+    static companyOnly = "https://zabmsms.herokuapp.com/api/company_only/";
+    static medicineApiUrl = "https://zabmsms.herokuapp.com/api/medicine/";
+    static companyAccountApiUrl = "https://zabmsms.herokuapp.com/api/company_account/";
+    static medicineNameApiUrl = "https://zabmsms.herokuapp.com/api/medicine_by_name/";
+    static employeeApiURL = "https://zabmsms.herokuapp.com/api/employee/";
+    static employeeSalaryByIdApiUrl = "https://zabmsms.herokuapp.com/api/employee_salary_by_id/";
+    static employeeBankApiUrlBYID = "https://zabmsms.herokuapp.com/api/employee_bank_by_id/";
+    static employeeSalaryApiUrl = "https://zabmsms.herokuapp.com/api/employee_all_salary/";
+    static employeeBankApiUrl = "https://zabmsms.herokuapp.com/api/employee_all_bank/";
+    static generateBillApiUrl = "https://zabmsms.herokuapp.com/api/generate_bill_api/";
+    static customerRequestApiUrl = "https://zabmsms.herokuapp.com/api/customer_request/";
+    static homeApiUrl = "https://zabmsms.herokuapp.com/api/home_api/";
 
     static sidebarItem = [
         { index: "0", title: "Home", url: "/home", icons: "home"},
